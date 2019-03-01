@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 
 from rendertron.storage.base import RendertronStorage
 
@@ -13,7 +14,7 @@ class DjangoCacheStorage(RendertronStorage):
     @staticmethod
     def get_default_options():
         return {
-            'TIMEOUT': 300,
+            'TIMEOUT': DEFAULT_TIMEOUT,
             'VERSION': None
         }
 
