@@ -103,3 +103,7 @@ RENDERTRON_STORAGE = {
     }
 }
 ```
+
+## License
+
+MIT
