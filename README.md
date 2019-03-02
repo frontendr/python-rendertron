@@ -16,7 +16,8 @@ also allows search engines to properly index the markup.
 
 ## Installing
 
-Install a Rendertron service by following the steps in [the documentation](https://github.com/GoogleChrome/rendertron#installing--deploying).
+Install a Rendertron service by following the steps in
+[the documentation](https://github.com/GoogleChrome/rendertron#installing--deploying).
 
 Install this package using `pip`:
 ```bash
