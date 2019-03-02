@@ -18,8 +18,12 @@ also allows search engines to properly index the markup.
 
 Install a Rendertron service by following the steps in [the documentation](https://github.com/GoogleChrome/rendertron#installing--deploying).
 
-The goal is to publish this package to PyPI once it is stable. Until then
-install it using `pip`'s `-e` flag:
+Install this package using `pip`:
+```bash
+pip install rendertron
+```
+
+You can also install the latest development version using `pip`'s `-e` flag:
 
 ```bash
 pip install -e git://git@github.com:frontendr/python-rendertron.git@develop#egg=rendertron
