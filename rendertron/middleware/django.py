@@ -25,10 +25,15 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
 
         super(DjangoRendertronMiddleware, self).__init__(
             base_url=kwargs.get('base_url', setting('RENDERTRON_BASE_URL')),
-            storage_settings=setting('RENDERTRON_STORAGE'),
-            include_patterns=setting('RENDERTRON_INCLUDE_PATTERNS'),
-            exclude_patterns=(setting('RENDERTRON_EXCLUDE_PATTERNS') +
-                              setting('RENDERTRON_EXCLUDE_PATTERNS_EXTRA'))
+            storage_settings=kwargs.get('storage',
+                                        setting('RENDERTRON_STORAGE')),
+            include_patterns=(
+                kwargs.get('include_patterns',
+                           setting('RENDERTRON_INCLUDE_PATTERNS'))),
+            exclude_patterns=(
+                kwargs.get('exclude_patterns',
+                           setting('RENDERTRON_EXCLUDE_PATTERNS') +
+                           setting('RENDERTRON_EXCLUDE_PATTERNS_EXTRA')))
         )
 
     def get_rendered_response(self, request):
