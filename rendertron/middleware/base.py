@@ -22,7 +22,7 @@ class RendertronMiddleware:
         :param list exclude_patterns: List of patterns to exclude.
         """
         self.base_url = (
-            base_url or default_settings.RENDERTRON_URL
+            base_url or default_settings.RENDERTRON_BASE_URL
         ).rstrip('/')
 
         self.storage = get_storage(storage_settings)

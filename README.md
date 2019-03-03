@@ -16,7 +16,8 @@ also allows search engines to properly index the markup.
 
 ## Installing
 
-Install a Rendertron service by following the steps in [the documentation](https://github.com/GoogleChrome/rendertron#installing--deploying).
+Install a Rendertron service by following the steps in
+[the documentation](https://github.com/GoogleChrome/rendertron#installing--deploying).
 
 Install this package using `pip`:
 ```bash
@@ -44,7 +45,7 @@ that's done in your site's settings.
 
 The following settings are available:
 
-- `RENDERTRON_URL` - Default: `'http://localhost:3000/'`. The url the Rendertron
+- `RENDERTRON_BASE_URL` - Default: `'http://localhost:3000/'`. The url the Rendertron
 service is listening on.
 - `RENDERTRON_RENDER_QUERY_PARAM` - Default: `'rendertron_render'`. The query
 parameter added to the request url passed to Rendertron. This is used to
@@ -102,3 +103,7 @@ RENDERTRON_STORAGE = {
     }
 }
 ```
+
+## License
+
+MIT

@@ -6,7 +6,7 @@ except ImportError:
     django_settings = None
 
 # The url Rendertron is listening at.
-RENDERTRON_URL = 'http://localhost:3000'
+RENDERTRON_BASE_URL = 'http://localhost:3000'
 
 # Query parameter added to requests made by Rendertron to be able to
 # differentiate those from original requests.

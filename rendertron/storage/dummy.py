@@ -9,7 +9,7 @@ class DummyStorage(RendertronStorage):
         return {}
 
     def get_stored_response(self, *args):
-        return None
+        return None, None
 
     def store_response(self, *args):
         pass
