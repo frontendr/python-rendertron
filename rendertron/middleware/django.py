@@ -17,14 +17,14 @@ def setting(name):
 class DjangoRendertronMiddleware(RendertronMiddleware):
     """ Django specific middleware """
 
-    def __init__(self, get_response):
+    def __init__(self, get_response, **kwargs):
         self.get_response = get_response
 
         # Should we move the query parameter logic to the super class?
         self.render_query_param = setting('RENDERTRON_RENDER_QUERY_PARAM')
 
         super(DjangoRendertronMiddleware, self).__init__(
-            base_url=setting('RENDERTRON_URL'),
+            base_url=kwargs.get('base_url', setting('RENDERTRON_BASE_URL')),
             storage_settings=setting('RENDERTRON_STORAGE'),
             include_patterns=setting('RENDERTRON_INCLUDE_PATTERNS'),
             exclude_patterns=(setting('RENDERTRON_EXCLUDE_PATTERNS') +
