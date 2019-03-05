@@ -2,6 +2,8 @@
 
 > Rendertron middleware for Python applications.
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
 [Rendertron](https://github.com/GoogleChrome/rendertron) is a headless Chrome 
 rendering solution designed to render & serialise web pages on the fly. The
 goal of this package is to provide middleware to render a request using a
