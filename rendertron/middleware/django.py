@@ -21,19 +21,21 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
         self.get_response = get_response
 
         # Should we move the query parameter logic to the super class?
-        self.render_query_param = setting('RENDERTRON_RENDER_QUERY_PARAM')
+        self.render_query_param = setting("RENDERTRON_RENDER_QUERY_PARAM")
 
         super(DjangoRendertronMiddleware, self).__init__(
-            base_url=kwargs.get('base_url', setting('RENDERTRON_BASE_URL')),
-            storage_settings=kwargs.get('storage',
-                                        setting('RENDERTRON_STORAGE')),
+            base_url=kwargs.get("base_url", setting("RENDERTRON_BASE_URL")),
+            storage_settings=kwargs.get("storage", setting("RENDERTRON_STORAGE")),
             include_patterns=(
-                kwargs.get('include_patterns',
-                           setting('RENDERTRON_INCLUDE_PATTERNS'))),
+                kwargs.get("include_patterns", setting("RENDERTRON_INCLUDE_PATTERNS"))
+            ),
             exclude_patterns=(
-                kwargs.get('exclude_patterns',
-                           setting('RENDERTRON_EXCLUDE_PATTERNS') +
-                           setting('RENDERTRON_EXCLUDE_PATTERNS_EXTRA')))
+                kwargs.get(
+                    "exclude_patterns",
+                    setting("RENDERTRON_EXCLUDE_PATTERNS")
+                    + setting("RENDERTRON_EXCLUDE_PATTERNS_EXTRA"),
+                )
+            ),
         )
 
     def get_rendered_response(self, request):
@@ -49,8 +51,9 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
             return response, meta
 
         # Should we move the query parameter logic to the super class?
-        url = '{url}?{param}=1'.format(url=request.build_absolute_uri(),
-                                       param=self.render_query_param)
+        url = "{url}?{param}=1".format(
+            url=request.build_absolute_uri(), param=self.render_query_param
+        )
         # Wouldn't it be awesome if we could move the rendering and storing
         # logic to a background process and first return the original response?
         return self.render_url(url, request)
@@ -62,17 +65,17 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
         return self.render_query_param in request.GET
 
     def __call__(self, request):
-        if not self.requested_by_rendertron(request) and \
-                not self.is_excluded(request.path):
+        if not self.requested_by_rendertron(request) and not self.is_excluded(
+            request.path
+        ):
             # Get the rendered response
             content, meta = self.get_rendered_response(request)
 
             if content is not None:
                 # possible keyword arguments of HttpResponse
-                kwargs = ['content_type', 'status', 'reason', 'charset']
+                kwargs = ["content_type", "status", "reason", "charset"]
                 return HttpResponse(
-                    content=content,
-                    **{key: meta[key] for key in meta if key in kwargs}
+                    content=content, **{key: meta[key] for key in meta if key in kwargs}
                 )
 
         # No rendered response was returned, continue as normal:

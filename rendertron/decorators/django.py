@@ -1,9 +1,7 @@
-from django.utils.decorators import decorator_from_middleware_with_args
-
 from rendertron.middleware.django import DjangoRendertronMiddleware
 
 
-def rendertron_render(**kwargs):
+def rendertron_render(view_func, **middleware_kwargs):
     """
     A Django view decorator to selectively apply `DjangoRendertronMiddleware`
     to a specific view.
@@ -14,8 +12,15 @@ def rendertron_render(**kwargs):
     specify them for cases where your view serves responses that should be both
     rendered and not rendered.
     """
-    return decorator_from_middleware_with_args(DjangoRendertronMiddleware)(
-        include_patterns=kwargs.get('include_patterns', []),
-        exclude_patterns=kwargs.get('exclude_patterns', []),
-        **kwargs
-    )
+
+    middleware_kwargs.setdefault("include_patterns", [])
+    middleware_kwargs.setdefault("exclude_patterns", [])
+
+    def _wrapped_view_func(request, *args, **kwargs):
+        def _get_response(request_from_middleware):
+            return view_func(request_from_middleware, *args, **kwargs)
+
+        middleware = DjangoRendertronMiddleware(_get_response, **middleware_kwargs)
+        return middleware(request)
+
+    return _wrapped_view_func
