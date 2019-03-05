@@ -5,9 +5,9 @@ from rendertron.decorators.django import rendertron_render
 
 @rendertron_render
 def decorated_view(request):
-    html = b'''<html>
+    html = b"""<html>
     <body>
         <p>Hello world</p>
     </body>
-    </html>'''
+    </html>"""
     return HttpResponse(content=html)
