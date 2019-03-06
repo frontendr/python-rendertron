@@ -53,10 +53,14 @@ RENDERTRON_EXCLUDE_PATTERNS = [
 
 if django_settings is not None:
     # Prepend Django's static paths:
-    RENDERTRON_EXCLUDE_PATTERNS = [
-        re.compile(r"^{url}".format(url=django_settings.STATIC_URL)),
-        re.compile(r"^{url}".format(url=django_settings.MEDIA_URL)),
-    ] + RENDERTRON_EXCLUDE_PATTERNS
+    if getattr(django_settings, "STATIC_URL"):
+        RENDERTRON_EXCLUDE_PATTERNS.insert(
+            0, re.compile(r"^{url}".format(url=django_settings.STATIC_URL))
+        )
+    if getattr(django_settings, "MEDIA_URL"):
+        RENDERTRON_EXCLUDE_PATTERNS.insert(
+            0, re.compile(r"^{url}".format(url=django_settings.MEDIA_URL))
+        )
 
 # Extra patterns to exclude:
 RENDERTRON_EXCLUDE_PATTERNS_EXTRA = []
