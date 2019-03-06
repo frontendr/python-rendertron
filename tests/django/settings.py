@@ -11,3 +11,4 @@ TEST_RUNNER = "tests.django.runner.NoDBTestRunner"
 DATABASES = {
     "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "django-test.db"}
 }
+STATIC_URL = "/static/"  # required: https://code.djangoproject.com/ticket/28235
