@@ -13,16 +13,14 @@ def rendertron_render(view_func, **middleware_kwargs):
     rendered and not rendered.
     """
 
-    middleware_kwargs.setdefault('include_patterns', [])
-    middleware_kwargs.setdefault('exclude_patterns', [])
+    middleware_kwargs.setdefault("include_patterns", [])
+    middleware_kwargs.setdefault("exclude_patterns", [])
 
     def _wrapped_view_func(request, *args, **kwargs):
         def _get_response(request_from_middleware):
             return view_func(request_from_middleware, *args, **kwargs)
 
-        middleware = DjangoRendertronMiddleware(
-            _get_response,
-            **middleware_kwargs
-        )
+        middleware = DjangoRendertronMiddleware(_get_response, **middleware_kwargs)
         return middleware(request)
+
     return _wrapped_view_func

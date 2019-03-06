@@ -11,7 +11,7 @@ def import_string(dotted_path):
     last name in the path. Raise ImportError if the import failed.
     """
     try:
-        module_path, class_name = dotted_path.rsplit('.', 1)
+        module_path, class_name = dotted_path.rsplit(".", 1)
     except ValueError as err:
         raise ImportError("%s doesn't look like a module path" % dotted_path) from err
 
@@ -20,8 +20,9 @@ def import_string(dotted_path):
     try:
         return getattr(module, class_name)
     except AttributeError as err:
-        raise ImportError('Module "%s" does not define a "%s" attribute/class' % (
-            module_path, class_name)
+        raise ImportError(
+            'Module "%s" does not define a "%s" attribute/class'
+            % (module_path, class_name)
         ) from err
 
 
@@ -47,14 +48,14 @@ def dict_merge(dct, merge_dct, add_keys=True):
     """
     dct = dct.copy()
     if not add_keys:
-        merge_dct = {
-            k: merge_dct[k]
-            for k in set(dct).intersection(set(merge_dct))
-        }
+        merge_dct = {k: merge_dct[k] for k in set(dct).intersection(set(merge_dct))}
 
     for k, v in merge_dct.items():
-        if (k in dct and isinstance(dct[k], dict)
-                and isinstance(merge_dct[k], collections.Mapping)):
+        if (
+            k in dct
+            and isinstance(dct[k], dict)
+            and isinstance(merge_dct[k], collections.Mapping)
+        ):
             dct[k] = dict_merge(dct[k], v, add_keys=add_keys)
         else:
             dct[k] = v

@@ -43,11 +43,10 @@ def get_storage(storage_settings):
     :return: The storage class instance.
     :rtype: RendertronStorage
     """
-    storage_class_path = storage_settings['CLASS']
+    storage_class_path = storage_settings["CLASS"]
     storage_class = import_string(storage_class_path)
 
     storage_options = dict_merge(
-        storage_class.get_default_options(),
-        storage_settings.get('OPTIONS', {})
+        storage_class.get_default_options(), storage_settings.get("OPTIONS", {})
     )
     return storage_class(storage_options)
