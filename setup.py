@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     license="MIT",
     url="https://github.com/frontendr/python-rendertron",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(include=["rendertron"]),
     classifiers=[
         "Development Status :: 4 - Beta",
         # 'Development Status :: 5 - Production/Stable',
