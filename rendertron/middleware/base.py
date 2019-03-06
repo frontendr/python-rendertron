@@ -1,4 +1,5 @@
 import re
+from urllib.error import HTTPError
 
 from urllib.request import urlopen
 from urllib.parse import quote
@@ -56,13 +57,16 @@ class RendertronMiddleware:
         """
         proxy_url = "{host}/render/{url}".format(host=self.base_url, url=quote(url))
 
-        with urlopen(proxy_url) as response:
-            if response.code == 200:  # What about other 'ok' codes?
-                data = response.read()
-                # Should we store the response code, headers etc?
-                metas = ["code", "reason", "status"]
-                meta = {key: getattr(response, key) for key in metas}
-                self.storage.store_response(request, data, meta)
-                return data, meta
+        try:
+            with urlopen(proxy_url) as response:
+                if response.code == 200:  # What about other 'ok' codes?
+                    data = response.read()
+                    # Should we store the response code, headers etc?
+                    metas = ["code", "reason", "status"]
+                    meta = {key: getattr(response, key) for key in metas}
+                    self.storage.store_response(request, data, meta)
+                    return data, meta
+        except HTTPError as e:
             # Should we raise/log errors?
-            return None, None
+            pass
+        return None, None
