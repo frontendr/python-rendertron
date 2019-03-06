@@ -2,6 +2,7 @@
 
 > Rendertron middleware for Python applications.
 
+[![Coverage Status](https://coveralls.io/repos/github/frontendr/python-rendertron/badge.svg?branch=develop)](https://coveralls.io/github/frontendr/python-rendertron?branch=develop)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 [Rendertron](https://github.com/GoogleChrome/rendertron) is a headless Chrome 
