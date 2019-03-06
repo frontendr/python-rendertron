@@ -38,9 +38,51 @@ This will install the `develop` branch.
 
 ### Django
 
-1. Add `'rendertron'` to the `INSTALLED_APPS` list in settings.
-2. Add `'rendertron.middleware.DjangoRendertronMiddleware'` to the `MIDDLEWARE`
+First, add `'rendertron'` to the `INSTALLED_APPS` list in settings.
+
+Then you have 2 choices:
+ - Enable the **middleware** and render everything that matches either
+ `RENDERTRON_INCLUDE_PATTERNS` or does not matches anything in
+ `RENDERTRON_EXCLUDE_PATTERNS`. See the Configuration section for more information about
+ those.
+ - Decorate specific views with the `@rendertron_render` decorator to only let render
+ those views with the Rendertron service.
+
+#### Middleware
+
+1. Add `'rendertron.middleware.DjangoRendertronMiddleware'` to the `MIDDLEWARE`
 list in the settings.
+2. Make sure to specify either `RENDERTRON_INCLUDE_PATTERNS` to specify path patterns
+which are to be rendered by the Rendertron service or `RENDERTRON_EXCLUDE_PATTERNS_EXTRA`
+to only specify what to exclude.
+
+#### Decorate specific views
+
+Instead of relying on the middleware and settings it is also possible to decorate
+specific views with the `@rendertron_render` decorator.
+
+```python
+from rendertron.decorators.django import rendertron_render
+
+
+@rendertron_render
+def my_view(request):
+    ...
+```
+
+For class based views use Django's [`method_decorator`](https://docs.djangoproject.com/en/dev/topics/class-based-views/intro/#decorating-the-class).
+
+```python
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+
+from rendertron.decorators.django import rendertron_render
+
+
+@method_decorator(rendertron_render, name="dispatch")
+class MyView(TemplateView):
+    ...
+```
 
 ## Configuration
 
