@@ -12,14 +12,14 @@ def import_string(dotted_path):
     """
     try:
         module_path, class_name = dotted_path.rsplit(".", 1)
-    except ValueError as err:
+    except ValueError as err:  # pragma: no cover
         raise ImportError("%s doesn't look like a module path" % dotted_path) from err
 
     module = import_module(module_path)
 
     try:
         return getattr(module, class_name)
-    except AttributeError as err:
+    except AttributeError as err:  # pragma: no cover
         raise ImportError(
             'Module "%s" does not define a "%s" attribute/class'
             % (module_path, class_name)
@@ -47,7 +47,7 @@ def dict_merge(dct, merge_dct, add_keys=True):
     :rtype: dict
     """
     dct = dct.copy()
-    if not add_keys:
+    if not add_keys:  # pragma: no cover
         merge_dct = {k: merge_dct[k] for k in set(dct).intersection(set(merge_dct))}
 
     for k, v in merge_dct.items():
