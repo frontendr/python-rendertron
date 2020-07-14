@@ -1,3 +1,4 @@
+import uuid
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -14,6 +15,11 @@ def rendertron_mock_render(request, url=None):
     """
     html = b"""<html><body><p>Rendertron response for url: """
     html += bytes(url, "utf-8")
+
+    # Add a UUID to make this response unique to be able to test caching:
+    html += b" unique ID: "
+    html += bytes(str(uuid.uuid4()), "utf-8")
+
     html += b"""</p></body></html>"""
     return HttpResponse(content=html)
 

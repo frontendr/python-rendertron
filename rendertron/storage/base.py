@@ -14,7 +14,7 @@ class RendertronStorage:
         Returns the default options for this storage.
         :rtype: dict
         """
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def get_stored_response(self, request):
         """
@@ -22,7 +22,7 @@ class RendertronStorage:
         :param request: The request object. Varies per framework.
         :returns: The stored response or None if there isn't any.
         """
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
     def store_response(self, request, response, meta):
         """
@@ -32,7 +32,7 @@ class RendertronStorage:
         :param dict meta: Meta data of the response
         :return:
         """
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
 
 def get_storage(storage_settings):

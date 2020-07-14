@@ -6,3 +6,4 @@ __pycache__
 /django-test.db
 /.coverage
 /.coveralls.yml
+/*.sh
