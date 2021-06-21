@@ -4,7 +4,7 @@ from urllib.error import HTTPError
 from urllib.request import urlopen
 from urllib.parse import quote
 
-from rendertron import default_settings
+from rendertron.settings import default_settings
 from rendertron.storage.base import get_storage
 
 
