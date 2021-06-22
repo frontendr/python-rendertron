@@ -64,3 +64,19 @@ if django_settings is not None:
 
 # Extra patterns to exclude:
 RENDERTRON_EXCLUDE_PATTERNS_EXTRA = []
+
+RENDERTRON_INCLUDE_USER_AGENT_PATTERNS = [
+    "adsbot-google",
+    "googlebot",
+    "mediapartners-google",
+    "googleweblight",
+    "bingbot",
+    "bingpreview",
+    "yeti",
+    "naverbot",
+    "slurp",
+    "duckduckbot",
+    "baiduspider",
+    "facebot",
+    "pingdom",
+]

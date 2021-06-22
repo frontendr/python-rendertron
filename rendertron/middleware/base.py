@@ -15,6 +15,7 @@ class RendertronMiddleware:
         storage_settings=None,
         include_patterns=None,
         exclude_patterns=None,
+        include_user_agent_patterns=None,
     ):
         """
         Initializes the middleware by storing most arguments in the instance.
@@ -22,12 +23,25 @@ class RendertronMiddleware:
         :param dict storage_settings: Settings for the storage class.
         :param list include_patterns: List of patterns to include.
         :param list exclude_patterns: List of patterns to exclude.
+        :param list include_user_agent_patterns: List of user agent patterns to include.
         """
         self.base_url = (base_url or default_settings.RENDERTRON_BASE_URL).rstrip("/")
 
         self.storage = get_storage(storage_settings)
         self.include_patterns = include_patterns or []
         self.exclude_patterns = exclude_patterns or []
+        self.include_user_agent_patterns = include_user_agent_patterns or []
+
+    def is_user_agent_excluded(self, user_agent):
+        """
+        Checks if the given user_agent is excluded from rendering
+        :param str user_agent: The user_agent to check
+        :rtype: bool
+        """
+        for include_user_agent_pattern in self.include_user_agent_patterns:
+            if re.match(include_user_agent_pattern, user_agent):
+                return False
+        return True
 
     def is_excluded(self, path):
         """

@@ -36,6 +36,12 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
                     + setting("RENDERTRON_EXCLUDE_PATTERNS_EXTRA"),
                 )
             ),
+            include_user_agent_patterns=(
+                kwargs.get(
+                    "include_user_agent_patterns",
+                    setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS")
+                )
+            )
         )
 
     def get_rendered_response(self, request):
@@ -67,6 +73,8 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
     def __call__(self, request):
         if not self.requested_by_rendertron(request) and not self.is_excluded(
             request.path
+        ) and not self.is_user_agent_excluded(
+            request.META.get("HTTP_USER_AGENT", "")
         ):
             # Get the rendered response
             content, meta = self.get_rendered_response(request)
