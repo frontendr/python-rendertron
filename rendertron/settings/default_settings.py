@@ -46,6 +46,36 @@ extensions = [
     "xml",
 ]
 
+user_agent_bots = [
+    "adsbot-google",
+    "googlebot",
+    "mediapartners-google",
+    "googleweblight",
+    "bingbot",
+    "bingpreview",
+    "yeti",
+    "naverbot",
+    "slurp",
+    "duckduckbot",
+    "baiduspider",
+    "facebot",
+    "pingdom",
+    "embedly",
+    "facebookexternalhit",
+    "linkedinbot",
+    "outbrain",
+    "pinterest",
+    "quora link preview",
+    "rogerbot",
+    "showyoubot",
+    "slackbot",
+    "telegrambot",
+    "twitterbot",
+    "vkshare",
+    "w3c_validator",
+    "whatsapp",
+]
+
 # URL patterns to exclude from sending to Rendertron:
 RENDERTRON_EXCLUDE_PATTERNS = [
     re.compile(r".*\.({ext})$".format(ext="|".join(extensions)))
@@ -66,17 +96,5 @@ if django_settings is not None:
 RENDERTRON_EXCLUDE_PATTERNS_EXTRA = []
 
 RENDERTRON_INCLUDE_USER_AGENT_PATTERNS = [
-    "adsbot-google",
-    "googlebot",
-    "mediapartners-google",
-    "googleweblight",
-    "bingbot",
-    "bingpreview",
-    "yeti",
-    "naverbot",
-    "slurp",
-    "duckduckbot",
-    "baiduspider",
-    "facebot",
-    "pingdom",
+    re.compile(r"{bot}".format(bot="|".join(user_agent_bots)))
 ]

@@ -15,7 +15,7 @@ def setting(name):
 
 
 class DjangoRendertronMiddleware(RendertronMiddleware):
-    """ Django specific middleware """
+    """Django specific middleware"""
 
     def __init__(self, get_response, **kwargs):
         self.get_response = get_response
@@ -39,9 +39,9 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
             include_user_agent_patterns=(
                 kwargs.get(
                     "include_user_agent_patterns",
-                    setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS")
+                    setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS"),
                 )
-            )
+            ),
         )
 
     def get_rendered_response(self, request):
@@ -65,16 +65,18 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
         return self.render_url(url, request)
 
     def requested_by_rendertron(self, request):
-        """ Checks whether request originates from the Rendertron service. """
+        """Checks whether request originates from the Rendertron service."""
         # Should we move the query parameter logic to the super class?
         # Also, a header would be much nicer. Like 'x-renderer' in a response
         return self.render_query_param in request.GET
 
     def __call__(self, request):
-        if not self.requested_by_rendertron(request) and not self.is_excluded(
-            request.path
-        ) and not self.is_user_agent_excluded(
-            request.META.get("HTTP_USER_AGENT", "")
+        user_agent_lower = request.META.get("HTTP_USER_AGENT", "").lower()
+
+        if (
+            not self.requested_by_rendertron(request)
+            and not self.is_user_agent_excluded(user_agent_lower)
+            and not self.is_excluded(request.path)
         ):
             # Get the rendered response
             content, meta = self.get_rendered_response(request)
