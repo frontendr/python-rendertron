@@ -39,7 +39,7 @@ class RendertronMiddleware:
         :rtype: bool
         """
         for include_user_agent_pattern in self.include_user_agent_patterns:
-            if re.match(include_user_agent_pattern, user_agent):
+            if re.search(include_user_agent_pattern, user_agent):
                 return False
         return True
 
