@@ -98,3 +98,5 @@ RENDERTRON_EXCLUDE_PATTERNS_EXTRA = []
 RENDERTRON_INCLUDE_USER_AGENT_PATTERNS = [
     re.compile(r"{bot}".format(bot="|".join(user_agent_bots)))
 ]
+
+RENDERTRON_INCLUDE_USER_AGENT_PATTERNS_EXTRA = []

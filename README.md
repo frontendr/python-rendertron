@@ -99,6 +99,8 @@ The following settings are available:
 | `RENDERTRON_INCLUDE_PATTERNS` | `[]` | A list of regular expression patterns to include. Once a pattern in this list matches the request no further checking will be done. |
 | `RENDERTRON_EXCLUDE_PATTERNS` | List of common extensions. | By default this is a list of common static file type extensions used on the web. If Django is detected it's `STATIC_URL` and `MEDIA_URL` paths are added to the list. Note that if you override this setting all defaults are gone. If you want to keep these defaults *and* add your own patterns use `RENDERTRON_EXCLUDE_PATTERNS_EXTRA`.
 | `RENDERTRON_EXCLUDE_PATTERNS_EXTRA` | `[]` | Like `RENDERTRON_EXCLUDE_PATTERNS` but will be appended to that list. |
+| `RENDERTRON_INCLUDE_USER_AGENT_PATTERNS` | `[]` | A list of regular expression user agent patterns to include. |
+| `RENDERTRON_EXCLUDE_PATTERNS_EXTRA` | `[]` | Like `RENDERTRON_INCLUDE_USER_AGENT_PATTERNS` but will be appended to that list. |
 
 ## Storage
 

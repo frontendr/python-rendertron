@@ -39,7 +39,8 @@ class DjangoRendertronMiddleware(RendertronMiddleware):
             include_user_agent_patterns=(
                 kwargs.get(
                     "include_user_agent_patterns",
-                    setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS"),
+                    setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS")
+                    + setting("RENDERTRON_INCLUDE_USER_AGENT_PATTERNS_EXTRA"),
                 )
             ),
         )
