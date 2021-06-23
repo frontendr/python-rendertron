@@ -1,5 +1,4 @@
 import re
-from urllib.error import HTTPError
 
 from urllib.request import urlopen
 from urllib.parse import quote
@@ -80,7 +79,6 @@ class RendertronMiddleware:
                     meta = {key: getattr(response, key) for key in metas}
                     self.storage.store_response(request, data, meta)
                     return data, meta
-        except HTTPError as e:
-            # Should we raise/log errors?
+        except Exception:
             pass
         return None, None
