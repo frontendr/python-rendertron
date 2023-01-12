@@ -72,7 +72,7 @@ class RendertronMiddleware:
 
         try:
             with urlopen(proxy_url) as response:
-                if response.code == 200:  # What about other 'ok' codes?
+                if response.code in [200, 404]:
                     data = response.read()
                     # Should we store the response code, headers etc?
                     metas = ["code", "reason", "status"]
